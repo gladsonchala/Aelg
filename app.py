@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # Connecting with MongoDB database
 try:
-    uri = "mongodb+srv://sifanetafa:<password>@cluster0.pl1kpg0.mongodb.net/?retryWrites=true&w=majority"
+    uri = "mongodb+srv://sifanetafa:sifanetaf@cluster0.pl1kpg0.mongodb.net/?retryWrites=true&w=majority"
     client = MongoClient(uri, server_api=ServerApi('1'))
     db = client.agelgilotify
 except Exception as ex:
