@@ -3,17 +3,18 @@ import json
 from bson.objectid import ObjectId
 import pymongo
 from datetime import datetime
+from pymongo.mongo_client import MongoClient
 
 app = Flask(__name__)
 
 # Connecting with MongoDB database
 try:
-    mongo_uri = "mongodb+srv://sifanetafa:sifanetafa@cluster0.ps5regl.mongodb.net/?retryWrites=true&w=majority"
-    mongo = pymongo.MongoClient(mongo_uri, serverSelectionTimeoutMS=1000)
-    mongo.server_info()  # Trigger exception if cannot connect to database
-    db = mongo.agelgilotify
-except:
-    print("ERROR - Cannot connect to database")
+    uri = "mongodb+srv://sifanetafa:<password>@cluster0.pl1kpg0.mongodb.net/?retryWrites=true&w=majority"
+    client = MongoClient(uri, server_api=ServerApi('1'))
+    db = client.agelgilotify
+except Exception as ex:
+    print("ERROR - Cannot connect to database:", ex)
+
 
 
 # Create a job
