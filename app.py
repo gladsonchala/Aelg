@@ -6,15 +6,22 @@ from datetime import datetime
 from pymongo.mongo_client import MongoClient
 
 app = Flask(__name__)
-
+"""
 # Connecting with MongoDB database
 try:
-    uri = "mongodb+srv://sifanetafa:sifanetaf@cluster0.pl1kpg0.mongodb.net/?retryWrites=true&w=majority"
+    uri = "mongodb+srv://sifanetafa:pwd@cluster0.pl1kpg0.mongodb.net/?retryWrites=true&w=majority"
     client = MongoClient(uri, server_api=ServerApi('1'))
     db = client.agelgilotify
 except Exception as ex:
     print("ERROR - Cannot connect to database:", ex)
-
+"""
+try:
+    # Use environment variables to access the MongoDB URI securely
+    mongo_uri = os.environ.get('MONGO_URI')
+    client = pymongo.MongoClient(mongo_uri)
+    db = client.get_default_database()
+except Exception as ex:
+    print("ERROR - Cannot connect to database:", ex)
 
 
 # Create a job
