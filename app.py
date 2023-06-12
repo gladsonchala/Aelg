@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Connecting with MongoDB database
 try:
-    mongo_uri = "mongodb+srv://sifanetafa: sifanetafa@cluster0.ps5regl.mongodb.net/?retryWrites=true&w=majority"
+    mongo_uri = "mongodb+srv://sifanetafa:sifanetafa@cluster0.ps5regl.mongodb.net/?retryWrites=true&w=majority"
     mongo = pymongo.MongoClient(mongo_uri, serverSelectionTimeoutMS=1000)
     mongo.server_info()  # Trigger exception if cannot connect to database
     db = mongo.agelgilotify
