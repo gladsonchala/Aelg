@@ -17,11 +17,11 @@ try:
 except Exception as e:
     print("ERROR - Cannot connect to the database:", str(e))
 
-
+"""
 # Create the necessary collections if they don't exist
 db.jobs.create_index([("title", pymongo.TEXT)])  # Index for full-text search on job titles
 db.applications.create_index("job_id")  # Index for faster querying of job applications
-
+"""
 
 
 # Create a job
