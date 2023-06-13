@@ -29,7 +29,8 @@ def create_job():
             "duration": request.form["duration"],
             "status": "Open",
             "is_emergency": bool(request.form.get("is_emergency")),
-            "task_giver_id": ObjectId(request.form["task_giver_id"]),
+            #"task_giver_id": ObjectId(request.form["task_giver_id"]),
+            "task_giver_id": request.form["task_giver_id"],
             "photos": []
         }
 
