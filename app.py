@@ -1,27 +1,21 @@
+#    uri = "mongodb+srv://sifanetafa:sifanetafa@cluster0.pl1kpg0.mongodb.net/?retryWrites=true&w=majority"
+
 from flask import Flask, Response, request, jsonify
 import json
 from bson.objectid import ObjectId
 import pymongo
 from datetime import datetime
-from pymongo.mongo_client import MongoClient
 
 app = Flask(__name__)
-"""
+
 # Connecting with MongoDB database
 try:
-    uri = "mongodb+srv://sifanetafa:pwd@cluster0.pl1kpg0.mongodb.net/?retryWrites=true&w=majority"
-    client = MongoClient(uri, server_api=ServerApi('1'))
-    db = client.agelgilotify
-except Exception as ex:
-    print("ERROR - Cannot connect to database:", ex)
-"""
-try:
-    # Use environment variables to access the MongoDB URI securely
-    mongo_uri = os.environ.get('MONGO_URI')
-    client = pymongo.MongoClient(mongo_uri)
-    db = client.get_default_database()
-except Exception as ex:
-    print("ERROR - Cannot connect to database:", ex)
+    mongo_uri = "mongodb+srv://sifanetafa:sifanetafa@cluster0.pl1kpg0.mongodb.net/?retryWrites=true&w=majority"
+    mongo = pymongo.MongoClient(mongo_uri, serverSelectionTimeoutMS=1000)
+    mongo.server_info()  # Trigger exception if cannot connect to the database
+    db = mongo.agelgilotify
+except Exception as e:
+    print("ERROR - Cannot connect to the database:", str(e))
 
 
 # Create a job
@@ -52,18 +46,26 @@ def create_job():
             job["photos"].append(photo)
 
         dbResponse = db.jobs.insert_one(job)
-        return Response(
-            response=json.dumps(
-                {"message": "Job created", "id": str(dbResponse.inserted_id)}
-            ),
-            status=200,
-            mimetype="application/json"
-        )
+        if dbResponse.inserted_id:
+            return Response(
+                response=json.dumps(
+                    {"message": "Job created", "id": str(dbResponse.inserted_id)}
+                ),
+                status=200,
+                mimetype="application/json"
+            )
+        else:
+            return Response(
+                response=json.dumps({"message": "Failed to create a job"}),
+                status=500,
+                mimetype="application/json"
+            )
 
     except Exception as ex:
-        print(ex)
+        error_message = "Error creating a job: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error creating a job"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
@@ -82,9 +84,10 @@ def get_jobs():
             mimetype="application/json"
         )
     except Exception as ex:
-        print(ex)
+        error_message = "Error fetching jobs: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error fetching jobs"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
@@ -109,9 +112,10 @@ def get_job(job_id):
                 mimetype="application/json"
             )
     except Exception as ex:
-        print(ex)
+        error_message = "Error fetching a job: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error fetching a job"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
@@ -159,9 +163,10 @@ def update_job(job_id):
             )
 
     except Exception as ex:
-        print(ex)
+        error_message = "Error updating a job: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error updating a job"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
@@ -186,9 +191,10 @@ def delete_job(job_id):
             )
 
     except Exception as ex:
-        print(ex)
+        error_message = "Error deleting a job: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error deleting a job"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
@@ -207,18 +213,26 @@ def apply_for_job():
         }
 
         dbResponse = db.applications.insert_one(application)
-        return Response(
-            response=json.dumps(
-                {"message": "Application submitted", "id": str(dbResponse.inserted_id)}
-            ),
-            status=200,
-            mimetype="application/json"
-        )
+        if dbResponse.inserted_id:
+            return Response(
+                response=json.dumps(
+                    {"message": "Application submitted", "id": str(dbResponse.inserted_id)}
+                ),
+                status=200,
+                mimetype="application/json"
+            )
+        else:
+            return Response(
+                response=json.dumps({"message": "Failed to submit the application"}),
+                status=500,
+                mimetype="application/json"
+            )
 
     except Exception as ex:
-        print(ex)
+        error_message = "Error applying for a job: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error applying for a job"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
@@ -237,9 +251,10 @@ def get_job_applications(job_id):
             mimetype="application/json"
         )
     except Exception as ex:
-        print(ex)
+        error_message = "Error fetching applications: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error fetching applications"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
@@ -263,13 +278,13 @@ def cancel_application(application_id):
             )
 
     except Exception as ex:
-        print(ex)
+        error_message = "Error cancelling application: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error cancelling application"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
-
 
 
 # Provide rating for a worker
@@ -282,18 +297,26 @@ def rate_worker():
         }
 
         dbResponse = db.user_ratings.insert_one(rating)
-        return Response(
-            response=json.dumps(
-                {"message": "Rating submitted", "id": str(dbResponse.inserted_id)}
-            ),
-            status=200,
-            mimetype="application/json"
-        )
+        if dbResponse.inserted_id:
+            return Response(
+                response=json.dumps(
+                    {"message": "Rating submitted", "id": str(dbResponse.inserted_id)}
+                ),
+                status=200,
+                mimetype="application/json"
+            )
+        else:
+            return Response(
+                response=json.dumps({"message": "Failed to submit the rating"}),
+                status=500,
+                mimetype="application/json"
+            )
 
     except Exception as ex:
-        print(ex)
+        error_message = "Error submitting rating: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error submitting rating"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
@@ -309,22 +332,30 @@ def rate_task_giver():
         }
 
         dbResponse = db.task_giver_ratings.insert_one(rating)
-        return Response(
-            response=json.dumps(
-                {"message": "Rating submitted", "id": str(dbResponse.inserted_id)}
-            ),
-            status=200,
-            mimetype="application/json"
-        )
+        if dbResponse.inserted_id:
+            return Response(
+                response=json.dumps(
+                    {"message": "Rating submitted", "id": str(dbResponse.inserted_id)}
+                ),
+                status=200,
+                mimetype="application/json"
+            )
+        else:
+            return Response(
+                response=json.dumps({"message": "Failed to submit the rating"}),
+                status=500,
+                mimetype="application/json"
+            )
 
     except Exception as ex:
-        print(ex)
+        error_message = "Error submitting rating: " + str(ex)
+        print(error_message)
         return Response(
-            response=json.dumps({"message": "Error submitting rating"}),
+            response=json.dumps({"message": error_message}),
             status=500,
             mimetype="application/json"
         )
-
+    
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 3000))
