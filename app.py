@@ -32,19 +32,18 @@ def create_job():
             #"task_giver_id": ObjectId(request.form["task_giver_id"]),
             "task_giver_id": request.form["task_giver_id"],
             
-"""            "photos": []
-        }
-
-        # Handle multiple photos
-        photo_urls = request.form.getlist("photos_url")
-        photo_captions = request.form.getlist("photos_caption")
-        for url, caption in zip(photo_urls, photo_captions):
-            photo = {
-                "url": url,
-                "caption": caption
-            }
-            job["photos"].append(photo)
-"""            
+#            "photos": []
+#        }
+#
+#       # Handle multiple photos
+#        photo_urls = request.form.getlist("photos_url")
+#        photo_captions = request.form.getlist("photos_caption")
+#        for url, caption in zip(photo_urls, photo_captions):
+#           photo = {
+#                "url": url,
+#                "caption": caption
+#            }
+#            job["photos"].append(photo)    
 
         # Make a request to MongoDB Data API to create the job
         url = f"{base_url}/insertOne"
