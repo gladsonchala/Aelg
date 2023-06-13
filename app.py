@@ -31,7 +31,8 @@ def create_job():
             "is_emergency": bool(request.form.get("is_emergency")),
             #"task_giver_id": ObjectId(request.form["task_giver_id"]),
             "task_giver_id": request.form["task_giver_id"],
-            "photos": []
+            
+"""            "photos": []
         }
 
         # Handle multiple photos
@@ -43,6 +44,7 @@ def create_job():
                 "caption": caption
             }
             job["photos"].append(photo)
+"""            
 
         # Make a request to MongoDB Data API to create the job
         url = f"{base_url}/insertOne"
