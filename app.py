@@ -15,7 +15,6 @@ headers = {
     "Authorization": "Bearer WIAsG0L4dV89Jg1ZGNfUEYFhuBZ4XeXdpbj3vdb4KQMGagsSTijtGBtdNRocUp7x"
 }
 
-
 # Create a job
 @app.route("/jobs", methods=["POST"])
 def create_job():
@@ -29,21 +28,9 @@ def create_job():
             "duration": request.form["duration"],
             "status": "Open",
             "is_emergency": bool(request.form.get("is_emergency")),
-            #"task_giver_id": ObjectId(request.form["task_giver_id"]),
             "task_giver_id": request.form["task_giver_id"],
-            
-#            "photos": []
-#        }
-#
-#       # Handle multiple photos
-#        photo_urls = request.form.getlist("photos_url")
-#        photo_captions = request.form.getlist("photos_caption")
-#        for url, caption in zip(photo_urls, photo_captions):
-#           photo = {
-#                "url": url,
-#                "caption": caption
-#            }
-#            job["photos"].append(photo)    
+            "photos": request.form["photos"]
+        }
 
         # Make a request to MongoDB Data API to create the job
         url = f"{base_url}/insertOne"
@@ -75,7 +62,6 @@ def create_job():
                 status=response.status_code,
                 mimetype="application/json"
             )
-
 
     except Exception as ex:
         error_message = "Error creating a job: " + str(ex)
