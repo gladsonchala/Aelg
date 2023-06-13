@@ -57,17 +57,24 @@ def create_job():
             job_id = response.json()["insertedId"]
             return Response(
                 response=json.dumps(
-                    {"message": "Job created", "id": str(job_id)}
+                    {"message": "Job created", "id": job_id}
                 ),
                 status=200,
                 mimetype="application/json"
             )
-        else:
+        elif response.status_code == 500:
             return Response(
-                response=json.dumps({"message": "Failed to create a job"}),
+                response=json.dumps({"message": "Failed to create a job: Internal server error"}),
                 status=500,
                 mimetype="application/json"
             )
+        else:
+            return Response(
+                response=json.dumps({"message": f"Failed to create a job: {response.json()['message']}"}),
+                status=response.status_code,
+                mimetype="application/json"
+            )
+
 
     except Exception as ex:
         error_message = "Error creating a job: " + str(ex)
