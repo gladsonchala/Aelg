@@ -1,5 +1,5 @@
 #base_url = "https://us-east-2.aws.data.mongodb-api.com/app/data-vagob/endpoint/data/v1"  # Replace with your MongoDB Data API endpoint
-#api-key = "WIAsG0L4dV89Jg1ZGNfUEYFhuBZ4XeXdpbj3vdb4KQMGagsSTijtGBtdNRocUp7x"  # Replace with your MongoDB Data API key
+#api-key = "WI4dV89Jg1ZGNYFhuBZ4XeXdpbjb4KQMGagsSTijtGBtdNRocUp7x"  # Replace with your MongoDB Data API key
 
 from flask import Flask, Response, request, jsonify
 import json
@@ -12,7 +12,7 @@ app = Flask(__name__)
 base_url = "https://us-east-2.aws.data.mongodb-api.com/app/data-vagob/endpoint/data/v1"
 headers = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer WIAsG0L4dV89Jg1ZGNfUEYFhuBZ4XeXdpbj3vdb4KQMGagsSTijtGBtdNRocUp7x"
+    "Authorization": "Bearer gfvvbj"
 }
 
 # Create a job
