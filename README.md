@@ -4,7 +4,7 @@
    <a href="https://github.com/gladsonchala"> 
    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=gladsonchala&show_icons=true&theme=dracula&include_all_commits=true&count_private=true"/> 
    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=gladsonchala&layout=compact&langs_count=7&theme=dracula&count_private=true"/> 
-   <img height="173em" src="https://raw.githubusercontent.com/gladson/gladson/main/github-gladson-contribution.svg"/> 
+   <img height="173em" src="https://raw.githubusercontent.com/gladsonchala/gladson/main/github-gladson-contribution.svg"/> 
  </div> 
   
   
