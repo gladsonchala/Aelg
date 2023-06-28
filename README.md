@@ -1,8 +1,8 @@
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Mulish&size=30&pause=1000&color=19F73B&width=600&lines=Hey+I+am+Gemechis.;Welcome+to+my+GitHub+profile.)](https://git.io/typing-svg) 
   
  <div> 
-   <a href="https://github.com/gladson"> 
-   <img height="180em" src="https://github-readme-stats.vercel.app/api?username=gladson&show_icons=true&theme=dracula&include_all_commits=true&count_private=true"/> 
+   <a href="https://github.com/gladsonchala"> 
+   <img height="180em" src="https://github-readme-stats.vercel.app/api?username=gladsonchala&show_icons=true&theme=dracula&include_all_commits=true&count_private=true"/> 
    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=gladson&layout=compact&langs_count=7&theme=dracula&count_private=true"/> 
    <img height="173em" src="https://raw.githubusercontent.com/gladson/gladson/main/github-gladson-contribution.svg"/> 
  </div> 
